@@ -4,12 +4,12 @@ div
 </template>
 
 <script>
-export default {
-  async asyncData({ $axios, error, params }) {
-    try {
-      const { data } = await $axios.get(`http://localhost:3000/events/${params.id}`)
+import { mapState } from 'vuex'
 
-      return { event: data }
+export default {
+  async fetch({ store, error, params }) {
+    try {
+      await store.dispatch('events/fetchEvent', params.id)
     } catch (err) {
       error({
           statusCode: 503,
@@ -28,7 +28,10 @@ export default {
         }
       ]
     }
-  }
+  },
+  computed: mapState({
+    event: state => state.events.event
+  })
 }
 </script>
 

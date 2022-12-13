@@ -6,12 +6,12 @@ div(class="main-page-content")
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  async asyncData({ $axios, error }) {
+  async fetch({ store, error }) {
     try {
-      const { data } = await $axios.get('http://localhost:3000/events')
-      
-      return { events: data }
+      await store.dispatch('events/fetchEvents')
     } catch (err) {
       error({
           statusCode: 503,
@@ -23,7 +23,10 @@ export default {
     return {
       title: 'Event Listing'
     }
-  }
+  },
+  computed: mapState({
+    events: state => state.events.events
+  })
 }
 </script>
 

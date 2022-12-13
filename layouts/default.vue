@@ -1,10 +1,10 @@
 <template lang="pug">
-  div
-    span DEFAULT LAYOUT
-    header
-      app-navbar
-    main
-      nuxt
+div
+  span DEFAULT LAYOUT
+  header
+    app-navbar
+  main
+    nuxt
 </template>
 
 <script>
