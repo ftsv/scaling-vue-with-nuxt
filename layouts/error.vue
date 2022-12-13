@@ -1,8 +1,8 @@
 <template lang="pug">
-  div
-    p(v-if="statusCode === 404")
-      nuxt-link(to="/") Return to homepage
-    p(v-else) {{ error.message }} 
+div
+  p(v-if="statusCode === 404")
+    nuxt-link(to="/") Return to homepage
+  p(v-else) {{ error.message }} 
 </template>
 
 <script>

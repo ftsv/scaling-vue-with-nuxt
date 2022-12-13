@@ -7,19 +7,17 @@ div(class="main-page-content")
 
 <script>
 export default {
-  asyncData({ $axios, error }) {
-    return $axios.get('http://localhost:3000/events')
-      .then( res => {
-        return {
-          events: res.data
-        }
-      })
-      .catch(e => {
-        error({
+  async asyncData({ $axios, error }) {
+    try {
+      const { data } = await $axios.get('http://localhost:3000/events')
+      
+      return { events: data }
+    } catch (err) {
+      error({
           statusCode: 503,
           message: 'Unable to fetch events at this time.'
         })
-      })
+    }
   },
   head() {
     return {

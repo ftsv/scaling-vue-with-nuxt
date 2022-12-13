@@ -1,25 +1,32 @@
 <template lang="pug">
-  div Event #
-    span {{ id }}
+div
+  span {{ event.title }}
 </template>
 
 <script>
 export default {
+  async asyncData({ $axios, error, params }) {
+    try {
+      const { data } = await $axios.get(`http://localhost:3000/events/${params.id}`)
+
+      return { event: data }
+    } catch (err) {
+      error({
+          statusCode: 503,
+          message: `Unable to fetch event #${params.id}.`
+        })
+    }
+  },
   head() {
     return {
-      title: `Event #${this.id}`,
+      title: `${this.event?.title}`,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: `What you need to know about event #${this.id}`
+          content: `What you need to know about ${this.event?.title}`
         }
       ]
-    }
-  }, 
-  computed: {
-    id() {
-      return this.$route.params.id
     }
   }
 }
